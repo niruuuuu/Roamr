@@ -53,7 +53,7 @@ const userSchema: Schema<User> = new Schema({
         type: String,
         required: false
     },
-    bio: {
+    bio: {  
         type: String,
         required: false
     },

@@ -1,10 +1,11 @@
 "use client"
 import React from 'react'
-import type { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import LeftSidebar from '@/components/ui-components/newsfeed/sidebars/LeftSidebar'
 import { useTheme } from "@mui/material";
 
-export default function RootLayout ({ children }: LayoutProps<"/">) {
+
+export default function RootLayout ({ children }: { children: ReactNode }) {
     const theme = useTheme()
     return (
         <div

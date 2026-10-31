@@ -120,5 +120,6 @@ export const config = {
         "/profile/:path",
         "/api/change-password",
         "/api/update-profile",
+        "/api/complete-profile",
     ],
 };

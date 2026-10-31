@@ -6,6 +6,7 @@ import "./globals.css";
 import { ThemeProvider } from "@emotion/react";
 import theme from "@/utils/theme";
 import { SessionProvider } from "next-auth/react";
+import { ReactNode } from "react";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 })
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
 
     return (
         <SessionProvider>
