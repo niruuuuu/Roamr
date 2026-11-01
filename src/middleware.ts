@@ -79,7 +79,9 @@ export default withAuth(
 
             if (
                 pathname.startsWith("/api/update-profile") ||
-                pathname.startsWith("/api/change-password") 
+                pathname.startsWith("/api/change-password") ||
+                pathname.startsWith("/api/update-profile") ||
+                pathname.startsWith("/api/complete-profile") 
             ) {
                 return NextResponse.next()
             }

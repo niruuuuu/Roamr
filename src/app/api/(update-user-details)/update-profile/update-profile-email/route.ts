@@ -1,7 +1,7 @@
 import connectDB from "@/lib/connectDB";
 import UserModel from "@/models/user.model";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../(authentications)/auth/[...nextauth]/options";
+import { authOptions } from "../../../(authentications)/auth/[...nextauth]/options";
 import { NextRequest } from "next/server";
 
 export async function PATCH(request: NextRequest) {
