@@ -7,7 +7,7 @@ export default withAuth(
         const token = req.nextauth.token;
         const { pathname } = req.nextUrl;
         const url = req.nextUrl.clone()
-        console.log(pathname)
+        // console.log(token, "mid 1")
 
         const isAuthPage = (
             pathname.startsWith("/sign-in") ||
@@ -35,7 +35,8 @@ export default withAuth(
             // api endpoints
             if (
                 pathname.startsWith("/api/change-password") ||
-                pathname.startsWith("/api/update-profile")
+                pathname.startsWith("/api/update-profile") ||
+                pathname.startsWith("/api/complete-profile")
             ) {
                 url.pathname = "/api/invalid-request"
                 return NextResponse.redirect(url)
@@ -93,6 +94,7 @@ export default withAuth(
         pages: { signIn: "/sign-in", error: "/sign-in" },
         callbacks: {
             authorized: ({ token, req }) => {
+                // console.log(token, "midd")
                 if (token) {
                     return true
                 } else {

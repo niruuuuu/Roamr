@@ -1,19 +1,23 @@
 import connectDB from "@/lib/connectDB";
 import UserModel from "@/models/user.model";
 import { NextRequest } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/(authentications)/auth/[...nextauth]/options";
+import uploadFile from "@/lib/upload";
 
-interface RouteParams {
-    params: Promise<{
-        userId: string;
-    }>;
-}
-
-export async function POST(request: NextRequest, { params }: RouteParams,) {
+export async function POST(request: NextRequest) {
     await connectDB()
-    const { userId } = await params
 
     try {
-        let user = await UserModel.findById(userId)
+        const session = await getServerSession(authOptions)
+        if (!session) {
+            console.log("User not found by the userId in the params || POST - api/complete-profile/[userId]")
+            return Response.json({
+                success: false,
+                message: "Unauthorized"
+            }, { status: 401 })
+        }
+        let user = await UserModel.findById(session.user._id)
         if (!user) {
             console.log("User not found by the userId in the params || POST - api/complete-profile/[userId]")
             return Response.json({
@@ -30,8 +34,19 @@ export async function POST(request: NextRequest, { params }: RouteParams,) {
             }, { status: 403 })
         }
         
-        const data = await request.json()
-        user = await UserModel.findByIdAndUpdate(userId, {
+        // const data = await request.json()
+        const formData = await request.formData()
+        const data = Object.fromEntries(formData.entries())
+
+        if (formData.get("profilePicture")) {
+            const profilePicture = formData.get("profilePicture")
+            if (profilePicture instanceof File) {
+                const picture = await uploadFile(profilePicture)
+                data.profilePicture = picture.url
+            }
+        }
+
+        user = await UserModel.findByIdAndUpdate(session.user._id, {
             $set: { ...data }
         }, {
             returnDocument: "after",

@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../(authentications)/auth/[...nextauth]/options";
 import { NextRequest } from "next/server";
 import UserModel from "@/models/user.model";
+import uploadFile from "@/lib/upload";
 
 export async function PATCH (request: NextRequest) {
     await connectDB()
@@ -19,12 +20,22 @@ export async function PATCH (request: NextRequest) {
             }, { status: 401 })
         }
 
-        const data: {
-            fullname?: string;
-            username?: string;
-            gender?: string;
-            bio?: string;
-        } = await request.json()
+        // const data: {
+        //     fullname?: string;
+        //     username?: string;
+        //     gender?: string;
+        //     bio?: string;
+        // } = await request.json()
+        const formData = await request.formData()
+        const data = Object.fromEntries(formData.entries())
+
+        if (formData.get("profilePicture")) {
+            const profilePicture = formData.get("profilePicture")
+            if (profilePicture instanceof File) {
+                const picture = await uploadFile(profilePicture)
+                data.profilePicture = picture.url
+            }
+        }
 
         const user = await UserModel.findByIdAndUpdate(
             session.user._id,
