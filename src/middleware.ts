@@ -1,13 +1,11 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-import { success } from "zod";
 
 export default withAuth(
     function middleware(req) {
         const token = req.nextauth.token;
         const { pathname } = req.nextUrl;
         const url = req.nextUrl.clone()
-        // console.log(token, "mid 1")
 
         const isAuthPage = (
             pathname.startsWith("/sign-in") ||
@@ -36,7 +34,8 @@ export default withAuth(
             if (
                 pathname.startsWith("/api/change-password") ||
                 pathname.startsWith("/api/update-profile") ||
-                pathname.startsWith("/api/complete-profile")
+                pathname.startsWith("/api/complete-profile") ||
+                pathname.startsWith("/api/drop")
             ) {
                 url.pathname = "/api/invalid-request"
                 return NextResponse.redirect(url)
@@ -81,7 +80,8 @@ export default withAuth(
                 pathname.startsWith("/api/update-profile") ||
                 pathname.startsWith("/api/change-password") ||
                 pathname.startsWith("/api/update-profile") ||
-                pathname.startsWith("/api/complete-profile") 
+                pathname.startsWith("/api/complete-profile") ||
+                pathname.startsWith("/api/drop")
             ) {
                 return NextResponse.next()
             }
@@ -123,7 +123,8 @@ export const config = {
         "/verify/:path*",
         "/profile/:path",
         "/api/change-password",
-        "/api/update-profile",
+        "/api/update-profile/:path*",
         "/api/complete-profile",
+        "/api/drop/:path*",
     ],
 };
