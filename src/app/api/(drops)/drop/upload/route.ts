@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
             success: true,
             message: "Drop uploaded successfully",
             data: drop
-        }, { status: 200 })
+        }, { status: 201 })
 
     } catch (error) {
         console.log("Internal server error | api/drop/upload", error)

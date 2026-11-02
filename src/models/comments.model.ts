@@ -71,6 +71,8 @@ const commentSchema: Schema<Comment> = new Schema({
         default: Date.now()
     },
     replies: [replySchema]
+}, {
+    timestamps: true
 })
 
 const CommentModel = mongoose.models.Comment as mongoose.Model<Comment> || mongoose.model<Comment>("Comment", commentSchema)

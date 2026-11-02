@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/(authentications)/auth/[...nextauth]/options";
 import DropModel from "@/models/drop.model";
 import { NextRequest, NextResponse } from "next/server";
-import uploadFile from "@/lib/upload";
 import { Types } from "mongoose";
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ dropId: string }> }) {
