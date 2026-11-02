@@ -4,6 +4,7 @@ import { authOptions } from "@/app/api/(authentications)/auth/[...nextauth]/opti
 import DropModel from "@/models/drop.model";
 import { NextRequest, NextResponse } from "next/server";
 import uploadFile from "@/lib/upload";
+import { Types } from "mongoose";
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ dropId: string }> }) {
     await connectDB()
@@ -19,14 +20,29 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         }
 
         const { dropId } = await params
-        let drop = await DropModel.findById(dropId)
+        if (!Types.ObjectId.isValid(dropId)) {
+            console.log("Invalid drop id | api/drop/edit/[dropId]")
+            return NextResponse.json({
+                success: false,
+                message: "Invalid drop id"
+            }, { status: 400 })
+        }
 
+        let drop = await DropModel.findById(dropId)
         if (!drop) {
             console.log("No drops found with the dropId | api/drop/edit/[dropId]")
             return NextResponse.json({
                 success: false,
                 message: "Drop not found"
             }, { status: 404 })
+        }
+
+        if (drop.author.toString() !== session.user._id) {
+            console.log("User is not authorize to edit this drop | api/drop/edit/[dropId]")
+            return NextResponse.json({
+                success: false,
+                message: "You can't edit this drop"
+            }, { status: 403 })
         }
 
         const formData = await request.formData()
@@ -52,10 +68,12 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
             }
             drop = await DropModel.findByIdAndUpdate(
                 dropId,
-                { $set: {
-                    photos: photoString,
-                    ...data
-                }},
+                {
+                    $set: {
+                        photos: photoString,
+                        ...data
+                    }
+                },
                 { returnDocument: "after" }
             )
 
