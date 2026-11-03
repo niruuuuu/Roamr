@@ -46,6 +46,10 @@ export async function POST(request: NextRequest) {
 
         if (!drop) {
             console.log("Some database error - Failed to create drop | api/drop/upload")
+            return NextResponse.json({
+                success: false,
+                message: "Drop error"
+            }, { status: 404 })
         }
 
         return NextResponse.json({
