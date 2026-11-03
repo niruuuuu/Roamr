@@ -11,7 +11,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
     try {
         const session = await getServerSession(authOptions)
         if (!session) {
-            console.log("Unauthorized request - session missing | api/comments/delete/[dropId]")
+            console.log("Unauthorized request - session missing | api/comments/delete/[commentId]")
             return NextResponse.json({
                 success: false,
                 message: "Unauthorized"
@@ -19,7 +19,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
         }
         const { commentId } = await params
         if (!Types.ObjectId.isValid(commentId)) {
-            console.log("Invalid comment id | api/comments/delete/[dropId]")
+            console.log("Invalid comment id | api/comments/delete/[commentId]")
             return NextResponse.json({
                 success: false,
                 message: "Invalid comment id"
@@ -27,7 +27,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
         }
         let comment = await CommentModel.findById(commentId)
         if (!comment) {
-            console.log("Comment id not found in the db | api/comments/delete/[dropId]")
+            console.log("Comment id not found in the db | api/comments/delete/[commentId]")
             return NextResponse.json({
                 success: false,
                 message: "Comment id not found"
@@ -35,7 +35,15 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
         }
 
         if (!comment.userId.equals(session.user._id)) {
-            console.log("User is not authorize to delete this drop | api/comments/delete/[dropId]")
+            console.log("User is not authorize to delete this drop | api/comments/delete/[commentId]")
+            return NextResponse.json({
+                success: false,
+                message: "You can't edit this comment"
+            }, { status: 403 })
+        }
+
+        if (!comment.dropId.equals(session.user._id)) {
+            console.log("User is not authorize to delete this drop | api/comments/delete/[commentId]")
             return NextResponse.json({
                 success: false,
                 message: "You can't edit this comment"
@@ -51,7 +59,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
         }, { status: 200 })
 
     } catch (error) {
-        console.log("Internal server error | api/comments/delete/[dropId]", error)
+        console.log("Internal server error | api/comments/delete/[commentId]", error)
         return NextResponse.json({
             success: false,
             message: "Internal server error"

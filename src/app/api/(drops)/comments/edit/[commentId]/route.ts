@@ -11,7 +11,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     try {
         const session = await getServerSession(authOptions);
         if (!session) {
-            console.log("Authentication Failed - session missing | pi/comments/edit/[dropId]")
+            console.log("Authentication Failed - session missing | pi/comments/edit/[commentId]")
             return NextResponse.json({
                 success: false,
                 message: "Unauthorized"
@@ -21,7 +21,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
 
         const { commentId } = await params
         if (!Types.ObjectId.isValid(commentId)) {
-            console.log("Invalid comment id | api/comments/edit/[dropId]")
+            console.log("Invalid comment id | api/comments/edit/[commentId]")
             return NextResponse.json({
                 success: false,
                 message: "Invalid comment id"
@@ -30,7 +30,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
 
         let comment = await CommentModel.findById(commentId)
         if (!comment) {
-            console.log("Comment id not found in the db | api/comments/edit/[dropId]")
+            console.log("Comment id not found in the db | api/comments/edit/[commentId]")
             return NextResponse.json({
                 success: false,
                 message: "Comment id not found"
@@ -38,7 +38,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         }
 
         if (!comment.userId.equals(userId)) {
-            console.log("User is not authorize to edit this drop | api/comments/edit/[dropId]")
+            console.log("User is not authorize to edit this drop | api/comments/edit/[commentId]")
             return NextResponse.json({
                 success: false,
                 message: "You can't edit this comment"
@@ -58,7 +58,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
 
 
     } catch (error) {
-        console.log("Internal server error | api/comments/edit/[dropId]", error)
+        console.log("Internal server error | api/comments/edit/[commentId]", error)
         return NextResponse.json({
             success: false,
             message: "Internal server error"
