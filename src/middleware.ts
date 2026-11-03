@@ -35,7 +35,9 @@ export default withAuth(
                 pathname.startsWith("/api/change-password") ||
                 pathname.startsWith("/api/update-profile") ||
                 pathname.startsWith("/api/complete-profile") ||
-                pathname.startsWith("/api/drop")
+                pathname.startsWith("/api/drop") ||
+                pathname.startsWith("/api/comments") ||
+                pathname.startsWith("/api/react")
             ) {
                 url.pathname = "/api/invalid-request"
                 return NextResponse.redirect(url)
@@ -81,7 +83,9 @@ export default withAuth(
                 pathname.startsWith("/api/change-password") ||
                 pathname.startsWith("/api/update-profile") ||
                 pathname.startsWith("/api/complete-profile") ||
-                pathname.startsWith("/api/drop")
+                pathname.startsWith("/api/drop") ||
+                pathname.startsWith("/api/comments") ||
+                pathname.startsWith("/api/react")
             ) {
                 return NextResponse.next()
             }
@@ -126,5 +130,7 @@ export const config = {
         "/api/update-profile/:path*",
         "/api/complete-profile",
         "/api/drop/:path*",
+        "/api/react/:path*",
+        "/api/comments/:path*",
     ],
 };
