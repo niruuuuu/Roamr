@@ -1,7 +1,6 @@
 import connectDB from "@/lib/connectDB";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/(authentications)/auth/[...nextauth]/options";
-import DropModel from "@/models/drop.model";
 import { NextRequest, NextResponse } from "next/server";
 import { Types } from "mongoose";
 import CommentModel from "@/models/comments.model";
