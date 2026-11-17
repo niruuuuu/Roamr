@@ -13,7 +13,6 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 // mui components
 import { Box } from "@mui/material";
-import Home from "@/app/page";
 
 // skeleton components
 import LeftBarSkeleton from "@/components/skeleton-components/LeftBarSkeleton";
@@ -175,7 +174,7 @@ const Sidebar = () => {
                                 </p>
                             </div>
                         </Link>
-                        <Link href="/settings">
+                        <Link href="/settings/edit">
                             <SettingsIcon
                                 sx={{
                                     color: theme.palette.text.secondary
