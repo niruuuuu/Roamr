@@ -46,7 +46,7 @@ export function Leftbar () {
             </Link>
 
             <div className="flex flex-col mt-8">
-                <div
+                <Link href="/settings/edit"
                     className="flex gap-3 items-center cursor-pointer px-4 py-4 rounded-md border border-transparent
                     hover:bg-[#0e131b] hover:border-[#1e2532]"
                 >
@@ -58,8 +58,8 @@ export function Leftbar () {
                     >
                         Edit profile
                     </span>
-                </div>
-                <div
+                </Link>
+                <Link href="/settings/profile-privacy"
                     className="flex gap-3 items-center cursor-pointer px-4 py-4 rounded-md border border-transparent
                     hover:bg-[#0e131b] hover:border-[#1e2532]"
                 >
@@ -71,7 +71,7 @@ export function Leftbar () {
                     >
                         Profile privacy
                     </span>
-                </div>
+                </Link>
                 <div
                     className="flex gap-3 items-center cursor-pointer px-4 py-4 rounded-md border border-transparent
                     hover:bg-[#0e131b] hover:border-[#1e2532]"
