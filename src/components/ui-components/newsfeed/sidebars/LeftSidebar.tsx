@@ -44,7 +44,7 @@ const Sidebar = () => {
                 bgcolor: theme.palette.background.default
             }}
         >
-            <div>
+            <Link href={"/"}>
                 <h1 className="font-bold text-2xl"
                     style={{
                         color: theme.palette.primary.main,
@@ -55,7 +55,7 @@ const Sidebar = () => {
                         color: theme.palette.text.secondary
                     }}
                 >Keep Roaming</p>
-            </div>
+            </Link>
             <div className="flex flex-col mt-8">
                 <Link
                     href="/"
@@ -175,13 +175,13 @@ const Sidebar = () => {
                                 </p>
                             </div>
                         </Link>
-                        <div>
+                        <Link href="/settings">
                             <SettingsIcon
                                 sx={{
                                     color: theme.palette.text.secondary
                                 }}
                             />
-                        </div>
+                        </Link>
                     </div>
                 )
             }
