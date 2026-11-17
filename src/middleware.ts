@@ -61,7 +61,8 @@ export default withAuth(
             // request continue successfully
             if (
                 pathname.startsWith("/profile") ||
-                pathname.startsWith("/feed")
+                pathname.startsWith("/feed") ||
+                pathname.startsWith("/settings")
             ) {
                 return NextResponse.next()
             }
@@ -126,6 +127,7 @@ export const config = {
         "/sign-in",
         "/verify/:path*",
         "/profile/:path",
+        "/settings/:path",
         "/api/change-password",
         "/api/update-profile/:path*",
         "/api/complete-profile",
