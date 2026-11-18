@@ -43,7 +43,7 @@ const userSchema: Schema<User> = new Schema({
         type: String,
         match: [/^\+?[1-9]\d{0,2}(?:[\s().-]*\d){6,14}$/, "please use a valid phone number"],
         unique: true,
-        required: false
+        required: false,
     },
     password: {
         type: String,
