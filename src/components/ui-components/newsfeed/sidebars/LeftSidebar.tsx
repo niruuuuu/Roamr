@@ -1,6 +1,7 @@
 "use client"
 import { Typography, useTheme } from "@mui/material";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 // icons
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -10,6 +11,7 @@ import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
 import SendIcon from "@mui/icons-material/Send";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 // mui components
 import { Box } from "@mui/material";
@@ -174,13 +176,22 @@ const Sidebar = () => {
                                 </p>
                             </div>
                         </Link>
-                        <Link href="/settings/edit">
-                            <SettingsIcon
-                                sx={{
-                                    color: theme.palette.text.secondary
-                                }}
-                            />
-                        </Link>
+                        <div className="flex gap-3">
+                            <Link href="/settings/edit">
+                                <SettingsIcon
+                                    sx={{
+                                        color: theme.palette.text.secondary
+                                    }}
+                                />
+                            </Link>
+                            <div 
+                                className="cursor-pointer"
+                                onClick={() => signOut({ callbackUrl: "/sign-in" })}
+                            >
+                                <LogoutIcon color="error" />
+                            </div>
+
+                        </div>
                     </div>
                 )
             }
