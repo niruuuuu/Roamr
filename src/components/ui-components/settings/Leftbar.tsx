@@ -72,7 +72,7 @@ export function Leftbar () {
                         Profile privacy
                     </span>
                 </Link>
-                <div
+                <Link href="/settings/change-password"
                     className="flex gap-3 items-center cursor-pointer px-4 py-4 rounded-md border border-transparent
                     hover:bg-[#0e131b] hover:border-[#1e2532]"
                 >
@@ -82,9 +82,9 @@ export function Leftbar () {
                             color: theme.palette.text.secondary
                         }}
                     >
-                        Blocked
+                        Change passowrd
                     </span>
-                </div>
+                </Link>
             </div>
         </Box>
     )
