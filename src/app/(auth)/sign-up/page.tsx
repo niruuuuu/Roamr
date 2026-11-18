@@ -55,7 +55,8 @@ const page = () => {
             const response = await axios.post(`/api/sign-up`, data)
             console.log(response)
             if (response.status == 201) {
-                router.replace(`/verify-account/${response.data?.user.username}`)
+                // router.replace(`/verify-account/${response.data?.user.username}`)
+                router.replace(`/settings/edit`)
             }
         } catch (error: any) {
             setOpen(true)

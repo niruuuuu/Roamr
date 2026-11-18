@@ -31,11 +31,10 @@ export const authOptions: NextAuthOptions = {
                         console.log("Incorrect password | nextauth authOptions")
                         return null
                     }
-                    if (!user.isVerified) {
-                        console.log("User not verified | nextauth authOptions")
-                        throw new Error("USER_NOT_VERIFIED")
-                    }
-                    console.log("jfjfhjfg")
+                    // if (!user.isVerified) {
+                    //     console.log("User not verified | nextauth authOptions")
+                    //     throw new Error("USER_NOT_VERIFIED")
+                    // }
 
                     return {
                         id: user._id.toString(),
