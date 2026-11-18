@@ -72,11 +72,13 @@ const userSchema: Schema<User> = new Schema({
     },
     otp: {
         type: String,
-        required: [true, "OTP is required"]
+        // required: [true, "OTP is required"]
+        required: false
     },
     otpExpiry: {
         type: Date,
-        required: [true, "OTP Expiry is required"]
+        // required: [true, "OTP Expiry is required"]
+        required: false
     },
     followers: [{
         type: Types.ObjectId,
